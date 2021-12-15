@@ -68,7 +68,7 @@ for hpo_state in config.SEEDS:
                 ########################################################################################################
                 name = "hyperboost"
                 print(f"\n[{name}] ")
-                hpo = Hyperboost(scenario=scenario, rng=rng, tae_runner=tat, pca_components=2)
+                hpo = Hyperboost(scenario=scenario, rng=rng, tae_runner=tat)
                 hpo_result, info = run_smac_based_optimizer(hpo, tae)
 
                 write_output(f"[{name}] time={info['time']} train_loss={info['last_train_loss']} "
@@ -89,53 +89,53 @@ for hpo_state in config.SEEDS:
 
                 records = util.add_record(records, task_id, name, hpo_result)
 
-                ########################################################################################################
-                # ROAR x2
-                ########################################################################################################
-                name = "roar_x2"
-                print(f"\n[{name}] ")
-                hpo = ROAR(scenario=scenario, rng=rng, tae_runner=tat)
-                hpo_result, info = run_smac_based_optimizer(hpo, tae, speed=2)
+                # ########################################################################################################
+                # # ROAR x2
+                # ########################################################################################################
+                # name = "roar_x2"
+                # print(f"\n[{name}] ")
+                # hpo = ROAR(scenario=scenario, rng=rng, tae_runner=tat)
+                # hpo_result, info = run_smac_based_optimizer(hpo, tae, speed=2)
+                #
+                # write_output(f"[{name}] time={info['time']} train_loss={info['last_train_loss']} "
+                #              f"test_loss={info['last_test_loss']}\n")
+                #
+                # records = util.add_record(records, task_id, name, hpo_result)
+                #
+                # ########################################################################################################
+                # # Random
+                # ########################################################################################################
+                # name = "random_x2"
+                # print(f"\n[{name}] ")
+                # speed = 2
+                # best_loss = 1
+                # last_test_loss = None
+                # train_trajectory = []
+                # test_trajectory = []
+                # running_time = 0
+                # for i in range(config.NUM_ITER):
+                #     start = time.time()
+                #     configs = [ml_algorithm.configuration_space.sample_configuration() for _ in range(speed)]
+                #     losses = [tat(cfg) for cfg in configs]
+                #     best = np.argmin(losses)
+                #     end = time.time()
+                #     running_time += end - start
+                #     if losses[best] < best_loss:
+                #         best_loss = losses[best]
+                #         test_loss, test_std = tae(configs[best])
+                #         last_test_loss = test_loss
+                #     test_trajectory.append(last_test_loss)
+                #     train_trajectory.append(best_loss)
 
-                write_output(f"[{name}] time={info['time']} train_loss={info['last_train_loss']} "
-                             f"test_loss={info['last_test_loss']}\n")
-
-                records = util.add_record(records, task_id, name, hpo_result)
-
-                ########################################################################################################
-                # Random
-                ########################################################################################################
-                name = "random_x2"
-                print(f"\n[{name}] ")
-                speed = 2
-                best_loss = 1
-                last_test_loss = None
-                train_trajectory = []
-                test_trajectory = []
-                running_time = 0
-                for i in range(config.NUM_ITER):
-                    start = time.time()
-                    configs = [ml_algorithm.configuration_space.sample_configuration() for _ in range(speed)]
-                    losses = [tat(cfg) for cfg in configs]
-                    best = np.argmin(losses)
-                    end = time.time()
-                    running_time += end - start
-                    if losses[best] < best_loss:
-                        best_loss = losses[best]
-                        test_loss, test_std = tae(configs[best])
-                        last_test_loss = test_loss
-                    test_trajectory.append(last_test_loss)
-                    train_trajectory.append(best_loss)
-
-                hpo_result = {
-                    "loss_train": train_trajectory,
-                    "loss_test": test_trajectory,
-                    "total_time": running_time / speed,
-                    "run_time": running_time,
-                    "n_configs": config.NUM_ITER * speed,
-                }
-
-                records = util.add_record(records, task_id, name, hpo_result)
+                # hpo_result = {
+                #     "loss_train": train_trajectory,
+                #     "loss_test": test_trajectory,
+                #     "total_time": running_time / speed,
+                #     "run_time": running_time,
+                #     "n_configs": config.NUM_ITER * speed,
+                # }
+                #
+                # records = util.add_record(records, task_id, name, hpo_result)
 
                 ########################################################################################################
 

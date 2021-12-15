@@ -20,8 +20,8 @@ Each task in OpenML is associated with one dataset. Normally these task includes
 should be tested, i.e. how the data should be split and which metric to use. We don't follow this task in our 
 benchmarks, but simply use the dataset. Each task can be viewed at openml.org/t/<task_id>
 """
-TASKS = [125920, 49, 146819, 29, 15, 3913, 3, 10101, 9971, 146818, 3917, 37, 3918, 14954, 9946, 146820, 3021, 31, 10093,
-         3902, 3903, 9952, 9957, 167141, 14952, 9978, 3904, 43, 219, 14965, 7592]
+TASKS = [125920, 49, 146819, 29]  # 15, 3913, 3, 10101, 9971, 146818, 3917, 37, 3918, 14954, 9946, 146820, 3021, 31,
+# 10093, 3902, 3903, 9952, 9957, 167141, 14952, 9978, 3904, 43, 219, 14965, 7592]
 
 """
 """
@@ -63,8 +63,8 @@ METRIC = 'balanced_accuracy'
 Parameter spaces to optimize.
 """
 ML_ALGORITHMS = [
-    RandomForestSpace(),
-    # GradientBoostingSpace(),
+    # RandomForestSpace(),
+    GradientBoostingSpace(),
     # DecisionTreeSpace()
 ]
 

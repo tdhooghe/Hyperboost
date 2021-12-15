@@ -233,7 +233,7 @@ def store_json(data, name, prefix=config.RESULTS_PREFIX, trial=None):
 
 def run_smac_based_optimizer(hpo, tae, speed=1):
     hpo = copy(hpo)
-    hpo.solver.intensifier.tae_runner.use_pynisher = False
+    hpo.solver.tae_runner.use_pynisher = False
     hpo.scenario.ta_run_limit = hpo.scenario.ta_run_limit * speed
 
     t0 = time.time()
