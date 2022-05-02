@@ -1,4 +1,4 @@
-smac~=1.1.1
+smac
 numpy>=1.7.1
 scipy>=1.7.0
 psutil
